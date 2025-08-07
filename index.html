@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanPlate - Restaurant Health Inspection App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --champagne: #F7E7CE;
+            --dark-overlay: rgba(15, 15, 15, 0.85);
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --text-primary: #FFFFFF;
+            --text-secondary: #E5E7EB;
+            --text-muted: #9CA3AF;
+            --border: rgba(255, 255, 255, 0.15);
+            --border-gold: rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Background Container */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-overlay);
+            z-index: -1;
+        }
+
+        /* Main Content */
+        .main-container {
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header Section */
+        .header-section {
+            padding: 60px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+            filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.8));
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .app-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            color: var(--gold);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--gold), var(--champagne));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .app-subtitle {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Brand Tagline */
+        .brand-section {
+            background: rgba(212, 175, 55, 0.15);
+            margin: 32px 20px;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border-gold);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand-saying {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-align: center;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: rgba(20, 20, 20, 0.35);
+            padding: 32px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+        }
+
+        /* City Explorer */
+        .city-explorer {
+            background: rgba(212, 175, 55, 0.1);
+            margin: 40px 20px;
+            padding: 40px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border-gold);
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .city-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .city-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .city-item {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 16px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .city-item:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: scale(1.05);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px 60px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+            background: linear-gradient(135deg, #F4C430, var(--gold));
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 20px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--gold);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-section {
+                padding: 40px 16px;
+            }
+
+            .features-section {
+                padding: 40px 16px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .cta-section {
+                padding: 60px 16px 40px;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .download-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .city-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Grade badges like in the app */
+        .grade-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 0 4px;
+        }
+
+        .grade-a { background-color: var(--success); color: white; }
+        .grade-b { background-color: var(--warning); color: white; }
+        .grade-c { background-color: var(--error); color: white; }
+
+        /* Health grades showcase */
+        .grades-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background-container">
+        <img src="background.jpg" alt="Culinary Background" class="background-image">
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Header Section -->
+        <section class="header-section animate-in">
+            <div class="logo-container">
+                <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
+            </div>
+            <p class="app-subtitle">Your trusted guide to restaurant health inspections across major U.S. cities</p>
+            
+            <!-- Health Grades Showcase -->
+            <div class="grades-showcase">
+                <span class="grade-badge grade-a">A</span>
+                <span class="grade-badge grade-b">B</span>
+                <span class="grade-badge grade-c">C</span>
+            </div>
+        </section>
+
+        <!-- Brand Section -->
+        <section class="brand-section animate-in">
+            <p class="brand-saying">
+                🍽️ "Transparency in every bite - Make informed dining decisions with real-time health inspection data"
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="features-title animate-in">Everything You Need to Dine Safely</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-in">
+                    <span class="feature-icon">🔍</span>
+                    <h3 class="feature-title">Smart Restaurant Search</h3>
+                    <p class="feature-description">Search restaurants by city with intelligent autocomplete. Get instant access to health grades, violation summaries, and inspection dates.</p>
+                </div>
+
+                <div class="feature-card animate-in">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Detailed Health Reports</h3>
+                    <p class="feature-description">View complete health inspection reports with violation details, location mapping, and historical inspection data.</p>
+                </div>
+
+                <div class="feature-card animate-in">
+                    <span class="feature-icon">🚗</span>
+                    <h3 class="feature-title">Order with Confidence</h3>
+                    <p class="feature-description">Seamlessly order from verified restaurants through integrated delivery partners - DoorDash, Uber Eats, and Grubhub.</p>
+                </div>
+
+                <div class="feature-card animate-in">
+                    <span class="feature-icon">🌟</span>
+                    <h3 class="feature-title">Trending & Favorites</h3>
+                    <p class="feature-description">Discover restaurants with recent A+ scores and save your favorite cities for quick access.</p>
+                </div>
+
+                <div class="feature-card animate-in">
+                    <span class="feature-icon">📱</span>
+                    <h3 class="feature-title">Dark Mode Design</h3>
+                    <p class="feature-description">Elegant, easy-on-the-eyes interface optimized for viewing restaurant data day or night.</p>
+                </div>
+
+                <div class="feature-card animate-in">
+                    <span class="feature-icon">🏆</span>
+                    <h3 class="feature-title">Grade-Based Insights</h3>
+                    <p class="feature-description">Color-coded health grades (A, B, C) with detailed violation breakdowns to help you make informed choices.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- City Explorer -->
+        <section class="city-explorer animate-in">
+            <h2 class="city-title">🏙️ Explore Major Cities</h2>
+            <p class="city-subtitle">CleanPlate covers restaurant inspections across these major metropolitan areas</p>
+            <div class="city-grid">
+                <div class="city-item">New York</div>
+                <div class="city-item">San Francisco</div>
+                <div class="city-item">Chicago</div>
+                <div class="city-item">Los Angeles</div>
+                <div class="city-item">Miami</div>
+                <div class="city-item">Boston</div>
+                <div class="city-item">Seattle</div>
+                <div class="city-item">Austin</div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section animate-in">
+            <h2 class="cta-title">Ready to Dine Safer?</h2>
+            <p class="cta-subtitle">
+                Join thousands of users who trust CleanPlate for transparent restaurant health information. 
+                Download now and never wonder about restaurant cleanliness again.
+            </p>
+            <div class="download-buttons">
+                <button class="download-btn" onclick="alert('Coming soon to App Store!')">
+                    🍎 Download for iOS
+                </button>
+                <button class="download-btn" onclick="alert('Coming soon to Google Play!')">
+                    🤖 Download for Android
+                </button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                Free to download • No hidden fees • Privacy focused
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    © 2025 CleanPlate. Making dining decisions safer, one inspection at a time.
+                </p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">About</a>
+                    <a href="#" class="footer-link">Data Sources</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animate-in elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animateElements = document.querySelectorAll('.animate-in');
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            });
+
+            // Add hover effects to city items
+            document.querySelectorAll('.city-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    alert(`🏙️ Coming soon to ${item.textContent}!`);
+                });
+            });
+        });
+
+        // Add some interactive sparkle
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: var(--gold);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1000;
+                opacity: 0.8;
+                animation: sparkleAnimation 1.5s ease-out forwards;
+            `;
+            
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1500);
+        }
+
+        // Add sparkle animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleAnimation {
+                0% {
+                    opacity: 0;
+                    transform: scale(0) rotate(0deg);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1) rotate(180deg);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Create occasional sparkles
+        setInterval(createSparkle, 3000);
+    </script>
+</body>
+</html>
