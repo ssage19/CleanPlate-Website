@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - CleanPlate</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google AdMob -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8384381342878857"
+            crossorigin="anonymous"></script>
     <style>
         :root {
             --gold: #D4AF37;
@@ -342,6 +346,20 @@
             line-height: 1.6;
         }
 
+        /* AdMob Banner Styles */
+        .ad-banner {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            padding: 20px;
+        }
+
+        .ad-banner ins {
+            border: 1px solid var(--border-gold);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px 16px;
@@ -427,6 +445,16 @@
                 </div>
             </div>
 
+            <!-- AdMob Banner Ad -->
+            <div class="ad-banner">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8384381342878857"
+                     data-ad-slot="7162860403"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+
             <div class="content-section">
                 <h2>✨ What Makes Us Different</h2>
                 <div class="features-grid">
@@ -476,6 +504,37 @@
             </div>
 
             <div class="content-section">
+                <h2>🗓️ Our Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">August 2025</div>
+                        <div class="timeline-title">CleanPlate Launch</div>
+                        <div class="timeline-description">Official launch of CleanPlate mobile app with support for 5 major U.S. cities and over 25,000 restaurants.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Q4 2024</div>
+                        <div class="timeline-title">Beta Testing Phase</div>
+                        <div class="timeline-description">Extensive beta testing with hundreds of users to refine the user experience and ensure data accuracy.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Q3 2024</div>
+                        <div class="timeline-title">Data Integration</div>
+                        <div class="timeline-description">Successfully integrated with health department APIs across 5 major metropolitan areas to provide real-time inspection data.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Q2 2024</div>
+                        <div class="timeline-title">Development Begins</div>
+                        <div class="timeline-description">Started development of the CleanPlate platform after extensive research into food safety data accessibility challenges.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Q1 2024</div>
+                        <div class="timeline-title">Concept & Research</div>
+                        <div class="timeline-description">Initial concept development and market research to understand the need for accessible restaurant health inspection data.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
                 <h2>🌟 Our Values</h2>
                 <p><strong>Transparency:</strong> We believe in open access to public health information and clear communication about our data sources and methodologies.</p>
                 <p><strong>Accuracy:</strong> We are committed to providing reliable, up-to-date information sourced directly from official government databases.</p>
@@ -492,5 +551,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Initialize AdMob ads
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 </body>
 </html>
