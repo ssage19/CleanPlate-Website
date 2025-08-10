@@ -88,7 +88,7 @@
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
-            padding: 15px 0;
+            padding: 30px 0;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -111,14 +111,39 @@
         }
 
         .nav-logo img {
-            height: 50px;
+            height: 100px;
             width: auto;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px 0;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
         }
 
         /* Header */
         .header-section {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 20px 20px 40px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -128,7 +153,7 @@
         }
 
         .logo {
-            height: 80px;
+            height: 120px;
             width: auto;
             margin: 0 auto 20px;
             display: block;
@@ -459,20 +484,6 @@
                 </a>
             </div>
         </nav>
-
-        <!-- Header Section -->
-        <section class="header-section animate-in">
-            <div class="logo-container">
-                <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
-            </div>
-            <p class="app-subtitle">Your trusted guide to restaurant health inspections across 5 major U.S. cities</p>
-            
-            <div class="grades-showcase">
-                <span class="grade-badge grade-a">A</span>
-                <span class="grade-badge grade-b">B</span>
-                <span class="grade-badge grade-c">C</span>
-            </div>
-        </section>
 
         <!-- Features -->
         <section class="features-section">
