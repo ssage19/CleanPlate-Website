@@ -1,0 +1,7 @@
+# CleanPlate ads.txt
+# This file authorizes ad networks to serve ads on your website
+
+# Google AdSense
+google.com, pub-1038059685462944, DIRECT, f08c47fec0942fa0
+
+# Updated: August 2025

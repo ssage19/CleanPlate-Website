@@ -1,8 +1,0 @@
-# CleanPlate App-ads.txt
-# This file authorizes ad networks to serve ads in your app
-
-# Google AdMob (add your publisher ID when you get it)
-# google.com, pub-YOUR-PUBLISHER-ID, DIRECT, f08c47fec0942fa0
-
-# Placeholder for when you get AdMob approval
-# Updated: 2024
