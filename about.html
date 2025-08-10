@@ -59,6 +59,44 @@
             z-index: -1;
         }
 
+        .main-container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav-header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 100px;
+            width: auto;
+        }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -70,14 +108,6 @@
         .header {
             text-align: center;
             margin-bottom: 50px;
-        }
-
-        .logo {
-            width: auto;
-            height: 100px;
-            margin: 0 auto 30px;
-            display: block;
-            filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.8));
         }
 
         h1 {
@@ -348,91 +378,119 @@
         <div class="background-overlay"></div>
     </div>
 
-    <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-        
-        <div class="header">
-            <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
-            <h1>About CleanPlate</h1>
-            <p class="tagline">Making dining decisions safer, one inspection at a time</p>
-            <p class="mission-statement">
-                CleanPlate was born from a simple idea: everyone deserves to know the health inspection status of restaurants before they dine. We believe transparency in food safety creates better experiences for diners and encourages restaurants to maintain the highest standards.
-            </p>
-        </div>
-
-        <div class="content-section">
-            <h2>🎯 Our Mission</h2>
-            <p>CleanPlate empowers diners with transparent access to restaurant health inspection data, enabling informed dining decisions while supporting restaurants that prioritize cleanliness and food safety.</p>
-            <p>We bridge the gap between government health data and everyday consumers, making complex inspection reports accessible and actionable for everyone who loves to dine out safely.</p>
-        </div>
-
-        <div class="content-section">
-            <h2>📊 By the Numbers</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number">5</span>
-                    <div class="stat-label">Major Cities</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">25K+</span>
-                    <div class="stat-label">Restaurants</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">800K+</span>
-                    <div class="stat-label">Inspections</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">24hrs</span>
-                    <div class="stat-label">Data Updates</div>
-                </div>
+    <div class="main-container">
+        <!-- Navigation -->
+        <nav class="nav-header">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo">
+                    <img src="cleanplate-logo.png" alt="CleanPlate Logo">
+                </a>
             </div>
-        </div>
+        </nav>
 
-        <div class="content-section">
-            <h2>✨ What Makes Us Different</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <span class="feature-icon">🔍</span>
-                    <div class="feature-title">Official Data Only</div>
-                    <div class="feature-description">We source all information directly from city health departments, ensuring accuracy and authenticity of every inspection report.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🚀</span>
-                    <div class="feature-title">Real-Time Updates</div>
-                    <div class="feature-description">Our systems sync with health department databases every 24 hours to provide the most current inspection information available.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🎨</span>
-                    <div class="feature-title">User-Friendly Design</div>
-                    <div class="feature-description">Complex health inspection data is presented in an intuitive, easy-to-understand format that anyone can navigate.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🔒</span>
-                    <div class="feature-title">Privacy First</div>
-                    <div class="feature-description">We collect minimal user data and never share personal information with third parties or restaurants.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🤝</span>
-                    <div class="feature-title">Restaurant Friendly</div>
-                    <div class="feature-description">We support the restaurant industry by helping customers find establishments that prioritize food safety and cleanliness.</div>
-                </div>
-                <div class="feature-item">
-                    <span class="feature-icon">📱</span>
-                    <div class="feature-title">Mobile-First</div>
-                    <div class="feature-description">Designed for on-the-go decision making, perfect for when you're choosing where to eat while you're out and about.</div>
-                </div>
+        <div class="container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <div class="header">
+                <h1>About CleanPlate</h1>
+                <p class="tagline">Making dining decisions safer, one inspection at a time</p>
+                <p class="mission-statement">
+                    CleanPlate was born from a simple idea: everyone deserves to know the health inspection status of restaurants before they dine. We believe transparency in food safety creates better experiences for diners and encourages restaurants to maintain the highest standards.
+                </p>
             </div>
-        </div>
 
-        <div class="content-section team-section">
-            <h2>👨‍💻 Meet the Founder</h2>
-            <div class="team-member">
-                <div class="team-avatar">S</div>
-                <div class="team-name">Stephen Sage</div>
-                <div class="team-role">Founder & CEO</div>
-                <div class="team-bio">
-                    A passionate food safety advocate and experienced software developer, Stephen founded CleanPlate after realizing how difficult it was to access restaurant health inspection data. With a background in both technology and food industry consulting, he's dedicated to making food safety information accessible to everyone.
+            <div class="content-section">
+                <h2>🎯 Our Mission</h2>
+                <p>CleanPlate empowers diners with transparent access to restaurant health inspection data, enabling informed dining decisions while supporting restaurants that prioritize cleanliness and food safety.</p>
+                <p>We bridge the gap between government health data and everyday consumers, making complex inspection reports accessible and actionable for everyone who loves to dine out safely.</p>
+            </div>
+
+            <div class="content-section">
+                <h2>📊 By the Numbers</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">5</span>
+                        <div class="stat-label">Major Cities</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">25K+</span>
+                        <div class="stat-label">Restaurants</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">800K+</span>
+                        <div class="stat-label">Inspections</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">24hrs</span>
+                        <div class="stat-label">Data Updates</div>
+                    </div>
                 </div>
             </div>
 
+            <div class="content-section">
+                <h2>✨ What Makes Us Different</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">🔍</span>
+                        <div class="feature-title">Official Data Only</div>
+                        <div class="feature-description">We source all information directly from city health departments, ensuring accuracy and authenticity of every inspection report.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🚀</span>
+                        <div class="feature-title">Real-Time Updates</div>
+                        <div class="feature-description">Our systems sync with health department databases every 24 hours to provide the most current inspection information available.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎨</span>
+                        <div class="feature-title">User-Friendly Design</div>
+                        <div class="feature-description">Complex health inspection data is presented in an intuitive, easy-to-understand format that anyone can navigate.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔒</span>
+                        <div class="feature-title">Privacy First</div>
+                        <div class="feature-description">We collect minimal user data and never share personal information with third parties or restaurants.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🤝</span>
+                        <div class="feature-title">Restaurant Friendly</div>
+                        <div class="feature-description">We support the restaurant industry by helping customers find establishments that prioritize food safety and cleanliness.</div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <div class="feature-title">Mobile-First</div>
+                        <div class="feature-description">Designed for on-the-go decision making, perfect for when you're choosing where to eat while you're out and about.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section team-section">
+                <h2>👨‍💻 Meet the Founder</h2>
+                <div class="team-member">
+                    <div class="team-avatar">S</div>
+                    <div class="team-name">Stephen Sage</div>
+                    <div class="team-role">Founder & CEO</div>
+                    <div class="team-bio">
+                        A passionate food safety advocate and experienced software developer, Stephen founded CleanPlate after realizing how difficult it was to access restaurant health inspection data. With a background in both technology and food industry consulting, he's dedicated to making food safety information accessible to everyone.
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>🌟 Our Values</h2>
+                <p><strong>Transparency:</strong> We believe in open access to public health information and clear communication about our data sources and methodologies.</p>
+                <p><strong>Accuracy:</strong> We are committed to providing reliable, up-to-date information sourced directly from official government databases.</p>
+                <p><strong>Privacy:</strong> We respect user privacy and minimize data collection while providing maximum value to our users.</p>
+                <p><strong>Accessibility:</strong> We design for everyone, ensuring our app is usable by people of all technical skill levels and abilities.</p>
+                <p><strong>Responsibility:</strong> We recognize the impact of our platform on both diners and restaurants, and we strive to be fair and constructive.</p>
+            </div>
+
+            <div class="content-section">
+                <h2>🔮 Looking Forward</h2>
+                <p>CleanPlate is just getting started. Our roadmap includes expanding to more cities, adding new features like allergen information and nutrition data, and developing partnerships with health departments to improve data quality and timeliness.</p>
+                <p>We're also exploring ways to help restaurants improve their health scores through educational resources and best practice sharing, creating a positive cycle that benefits everyone in the food ecosystem.</p>
+                <p>Want to help shape the future of CleanPlate? <a href="contact.html" style="color: var(--gold); text-decoration: none; font-weight: 600;">Get in touch</a> with your ideas and feedback!</p>
+            </div>
         </div>
+    </div>
+</body>
+</html>
