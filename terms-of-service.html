@@ -25,28 +25,86 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.7;
+            line-height: 1.6;
             color: var(--text-primary);
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            overflow-x: hidden;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-overlay);
+            z-index: -1;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 1;
             min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav-header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 100px;
+            width: auto;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
+            min-height: 100vh;
+            position: relative;
         }
 
         .header {
             text-align: center;
             margin-bottom: 40px;
-        }
-
-        .logo {
-            width: auto;
-            height: 100px;
-            margin: 0 auto 20px;
-            display: block;
         }
 
         h1 {
@@ -170,132 +228,147 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-        
-        <div class="header">
-            <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
-            <h1>Terms of Service</h1>
-            <p class="subtitle">Legal terms and conditions for using CleanPlate</p>
-        </div>
+    <!-- Background -->
+    <div class="background-container">
+        <img src="background.jpg" alt="Culinary Background" class="background-image">
+        <div class="background-overlay"></div>
+    </div>
 
-        <div class="content">
-            <div class="effective-date">
-                <strong>Effective Date:</strong> August 7, 2025<br>
-                <strong>Last Updated:</strong> August 7, 2025
+    <div class="main-container">
+        <!-- Navigation -->
+        <nav class="nav-header">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo">
+                    <img src="cleanplate-logo.png" alt="CleanPlate Logo">
+                </a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <div class="header">
+                <h1>Terms of Service</h1>
+                <p class="subtitle">Legal terms and conditions for using CleanPlate</p>
             </div>
 
-            <div class="important-notice">
-                <strong>Important:</strong> Please read these Terms of Service carefully before using CleanPlate. By downloading, installing, or using our app, you agree to be bound by these terms.
-            </div>
+            <div class="content">
+                <div class="effective-date">
+                    <strong>Effective Date:</strong> August 7, 2025<br>
+                    <strong>Last Updated:</strong> August 7, 2025
+                </div>
 
-            <h2>Acceptance of Terms</h2>
-            <p>By accessing or using the CleanPlate mobile application ("App"), you agree to comply with and be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our App.</p>
+                <div class="important-notice">
+                    <strong>Important:</strong> Please read these Terms of Service carefully before using CleanPlate. By downloading, installing, or using our app, you agree to be bound by these terms.
+                </div>
 
-            <h2>Description of Service</h2>
-            <p>CleanPlate is a mobile application that provides access to publicly available restaurant health inspection data from various city health departments across the United States. Our service includes:</p>
-            <ul>
-                <li>Restaurant health inspection grades and scores</li>
-                <li>Health violation details and inspection dates</li>
-                <li>Restaurant search and filtering capabilities</li>
-                <li>Affiliate links to third-party food delivery services</li>
-            </ul>
+                <h2>Acceptance of Terms</h2>
+                <p>By accessing or using the CleanPlate mobile application ("App"), you agree to comply with and be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our App.</p>
 
-            <h2>Data Accuracy and Limitations</h2>
-            <p><strong>Information Source:</strong> All health inspection data displayed in CleanPlate is sourced from official city health department databases and public records. We do not conduct our own inspections or verify the accuracy of this data.</p>
-            
-            <p><strong>Data Timeliness:</strong> While we strive to provide current information, there may be delays between when inspections occur and when data becomes available in our App. Health inspection data may not reflect the most recent restaurant conditions.</p>
-            
-            <p><strong>No Warranty:</strong> We make no warranties about the accuracy, completeness, or timeliness of the health inspection data. Users should verify current restaurant conditions independently.</p>
+                <h2>Description of Service</h2>
+                <p>CleanPlate is a mobile application that provides access to publicly available restaurant health inspection data from various city health departments across the United States. Our service includes:</p>
+                <ul>
+                    <li>Restaurant health inspection grades and scores</li>
+                    <li>Health violation details and inspection dates</li>
+                    <li>Restaurant search and filtering capabilities</li>
+                    <li>Interactive maps and location services</li>
+                </ul>
 
-            <h2>User Responsibilities</h2>
-            <p>When using CleanPlate, you agree to:</p>
-            <ul>
-                <li>Use the App only for lawful purposes and in accordance with these Terms</li>
-                <li>Not attempt to reverse engineer, modify, or tamper with the App</li>
-                <li>Not use automated systems to access or scrape data from the App</li>
-                <li>Respect the intellectual property rights of CleanPlate and third parties</li>
-                <li>Make your own independent decisions about restaurant safety and dining choices</li>
-                <li>Not hold CleanPlate liable for your dining decisions based on App information</li>
-            </ul>
+                <h2>Data Accuracy and Limitations</h2>
+                <p><strong>Information Source:</strong> All health inspection data displayed in CleanPlate is sourced from official city health department databases and public records. We do not conduct our own inspections or verify the accuracy of this data.</p>
+                
+                <p><strong>Data Timeliness:</strong> While we strive to provide current information, there may be delays between when inspections occur and when data becomes available in our App. Health inspection data may not reflect the most recent restaurant conditions.</p>
+                
+                <p><strong>No Warranty:</strong> We make no warranties about the accuracy, completeness, or timeliness of the health inspection data. Users should verify current restaurant conditions independently.</p>
 
-            <h2>Prohibited Uses</h2>
-            <p>You may not use CleanPlate to:</p>
-            <ul>
-                <li>Violate any applicable laws or regulations</li>
-                <li>Harass, abuse, or harm restaurant owners or employees</li>
-                <li>Distribute malware, viruses, or other harmful code</li>
-                <li>Impersonate CleanPlate or its representatives</li>
-                <li>Collect personal information about other users</li>
-                <li>Use the App for commercial purposes without permission</li>
-                <li>Attempt to gain unauthorized access to our systems</li>
-            </ul>
+                <h2>User Responsibilities</h2>
+                <p>When using CleanPlate, you agree to:</p>
+                <ul>
+                    <li>Use the App only for lawful purposes and in accordance with these Terms</li>
+                    <li>Not attempt to reverse engineer, modify, or tamper with the App</li>
+                    <li>Not use automated systems to access or scrape data from the App</li>
+                    <li>Respect the intellectual property rights of CleanPlate and third parties</li>
+                    <li>Make your own independent decisions about restaurant safety and dining choices</li>
+                    <li>Not hold CleanPlate liable for your dining decisions based on App information</li>
+                </ul>
 
-            <h2>Affiliate Partnerships</h2>
-            <p>CleanPlate contains affiliate links to third-party food delivery services including DoorDash, Uber Eats, and Grubhub. When you use these links:</p>
-            <ul>
-                <li>You will be subject to the terms and privacy policies of those services</li>
-                <li>CleanPlate may receive compensation from successful referrals</li>
-                <li>These partnerships help keep our App free for users</li>
-                <li>We do not control the services provided by these third parties</li>
-            </ul>
+                <h2>Prohibited Uses</h2>
+                <p>You may not use CleanPlate to:</p>
+                <ul>
+                    <li>Violate any applicable laws or regulations</li>
+                    <li>Harass, abuse, or harm restaurant owners or employees</li>
+                    <li>Distribute malware, viruses, or other harmful code</li>
+                    <li>Impersonate CleanPlate or its representatives</li>
+                    <li>Collect personal information about other users</li>
+                    <li>Use the App for commercial purposes without permission</li>
+                    <li>Attempt to gain unauthorized access to our systems</li>
+                </ul>
 
-            <h2>Intellectual Property</h2>
-            <p>CleanPlate and its original content, features, and functionality are owned by CleanPlate and are protected by international copyright, trademark, and other intellectual property laws.</p>
-            
-            <p>Health inspection data is sourced from government databases and remains in the public domain. Our presentation, organization, and additional features are proprietary to CleanPlate.</p>
+                <h2>External Links and Services</h2>
+                <p>CleanPlate may contain links to restaurant websites or other external services. When you use these links:</p>
+                <ul>
+                    <li>You will be subject to the terms and privacy policies of those services</li>
+                    <li>CleanPlate does not control the services provided by these third parties</li>
+                    <li>We are not responsible for the content or availability of external websites</li>
+                    <li>Use of external services is at your own risk</li>
+                </ul>
 
-            <h2>Privacy and Data Collection</h2>
-            <p>Your privacy is important to us. Please review our Privacy Policy, which explains how we collect, use, and protect your information. By using CleanPlate, you consent to our data practices as described in our Privacy Policy.</p>
+                <h2>Intellectual Property</h2>
+                <p>CleanPlate and its original content, features, and functionality are owned by CleanPlate and are protected by international copyright, trademark, and other intellectual property laws.</p>
+                
+                <p>Health inspection data is sourced from government databases and remains in the public domain. Our presentation, organization, and additional features are proprietary to CleanPlate.</p>
 
-            <h2>Disclaimers and Limitation of Liability</h2>
-            <p><strong>No Medical or Health Advice:</strong> CleanPlate provides information only and is not intended as medical or health advice. We do not recommend or endorse specific restaurants or dining decisions.</p>
-            
-            <p><strong>Use at Your Own Risk:</strong> Your use of CleanPlate and any decisions based on the information provided are at your own risk. We are not responsible for any health issues, illness, or other consequences resulting from your dining choices.</p>
-            
-            <p><strong>Limitation of Liability:</strong> To the fullest extent permitted by law, CleanPlate shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the App.</p>
+                <h2>Privacy and Data Collection</h2>
+                <p>Your privacy is important to us. Please review our Privacy Policy, which explains how we collect, use, and protect your information. By using CleanPlate, you consent to our data practices as described in our Privacy Policy.</p>
 
-            <h2>Third-Party Services</h2>
-            <p>CleanPlate integrates with various third-party services and data sources. We are not responsible for:</p>
-            <ul>
-                <li>The availability, accuracy, or content of third-party services</li>
-                <li>Third-party privacy practices or terms of service</li>
-                <li>Any damages resulting from third-party service use</li>
-                <li>Changes or discontinuation of third-party services</li>
-            </ul>
+                <h2>Disclaimers and Limitation of Liability</h2>
+                <p><strong>No Medical or Health Advice:</strong> CleanPlate provides information only and is not intended as medical or health advice. We do not recommend or endorse specific restaurants or dining decisions.</p>
+                
+                <p><strong>Use at Your Own Risk:</strong> Your use of CleanPlate and any decisions based on the information provided are at your own risk. We are not responsible for any health issues, illness, or other consequences resulting from your dining choices.</p>
+                
+                <p><strong>Limitation of Liability:</strong> To the fullest extent permitted by law, CleanPlate shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the App.</p>
 
-            <h2>App Store Terms</h2>
-            <p>Your use of CleanPlate is also subject to the terms and conditions of the app store from which you downloaded the App (Apple App Store, Google Play Store, etc.). In case of conflict, these Terms shall prevail regarding CleanPlate-specific matters.</p>
+                <h2>Third-Party Services</h2>
+                <p>CleanPlate integrates with various third-party services and data sources. We are not responsible for:</p>
+                <ul>
+                    <li>The availability, accuracy, or content of third-party services</li>
+                    <li>Third-party privacy practices or terms of service</li>
+                    <li>Any damages resulting from third-party service use</li>
+                    <li>Changes or discontinuation of third-party services</li>
+                </ul>
 
-            <h2>Modifications to Terms</h2>
-            <p>We reserve the right to modify these Terms at any time. When we make changes:</p>
-            <ul>
-                <li>We will update the "Last Updated" date</li>
-                <li>Significant changes will be communicated through the App</li>
-                <li>Continued use after changes constitutes acceptance</li>
-                <li>If you disagree with changes, you may discontinue use</li>
-            </ul>
+                <h2>App Store Terms</h2>
+                <p>Your use of CleanPlate is also subject to the terms and conditions of the app store from which you downloaded the App (Apple App Store, Google Play Store, etc.). In case of conflict, these Terms shall prevail regarding CleanPlate-specific matters.</p>
 
-            <h2>Termination</h2>
-            <p>We may terminate or suspend your access to CleanPlate immediately, without prior notice, for any breach of these Terms. Upon termination, your right to use the App ceases immediately.</p>
+                <h2>Modifications to Terms</h2>
+                <p>We reserve the right to modify these Terms at any time. When we make changes:</p>
+                <ul>
+                    <li>We will update the "Last Updated" date</li>
+                    <li>Significant changes will be communicated through the App</li>
+                    <li>Continued use after changes constitutes acceptance</li>
+                    <li>If you disagree with changes, you may discontinue use</li>
+                </ul>
 
-            <h2>Governing Law</h2>
-            <p>These Terms are governed by and construed in accordance with the laws of the United States and the state in which CleanPlate is headquartered, without regard to conflict of law principles.</p>
+                <h2>Termination</h2>
+                <p>We may terminate or suspend your access to CleanPlate immediately, without prior notice, for any breach of these Terms. Upon termination, your right to use the App ceases immediately.</p>
 
-            <h2>Severability</h2>
-            <p>If any provision of these Terms is held to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.</p>
+                <h2>Governing Law</h2>
+                <p>These Terms are governed by and construed in accordance with the laws of the United States and the state in which CleanPlate is headquartered, without regard to conflict of law principles.</p>
 
-            <h2>Contact Information</h2>
-            <p>If you have any questions about these Terms of Service, please contact us:</p>
+                <h2>Severability</h2>
+                <p>If any provision of these Terms is held to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.</p>
 
-            <div class="contact-info">
-                <h3>Contact Us</h3>
-                <p><strong>Email:</strong> ssage@cleanplateus.com</p>
-                <p><strong>Website:</strong> https://cleanplateus.com</p>
-                <p><strong>Response Time:</strong> We aim to respond to all legal inquiries within 5 business days</p>
+                <h2>Contact Information</h2>
+                <p>If you have any questions about these Terms of Service, please contact us:</p>
+
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p><strong>Email:</strong> ssage@cleanplateus.com</p>
+                    <p><strong>Website:</strong> https://cleanplateus.com</p>
+                    <p><strong>Response Time:</strong> We aim to respond to all legal inquiries within 5 business days</p>
+                </div>
             </div>
         </div>
     </div>
 </body>
-
 </html>
