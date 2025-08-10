@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Sources - CleanPlate</title>
+    <meta name="description" content="Learn about CleanPlate's official government data sources for restaurant health inspections across 5 major U.S. cities.">
+    
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --champagne: #F7E7CE;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --border: rgba(255, 255, 255, 0.1);
+            --border-gold: rgba(212, 175, 55, 0.3);
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--champagne);
+            transform: translateX(-5px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.8));
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .intro-section {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .intro-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .trust-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border-gold);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        .trust-badge strong {
+            color: var(--gold);
+        }
+
+        .stats-section {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .city-card {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .city-card:hover {
+            border-color: var(--border-gold);
+            transform: translateY(-2px);
+        }
+
+        .city-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .city-icon {
+            font-size: 2rem;
+            margin-right: 12px;
+        }
+
+        .city-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .city-info {
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .city-info strong {
+            color: var(--text-primary);
+        }
+
+        .data-source {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+
+        .source-name {
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .source-url {
+            color: var(--champagne);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .source-url:hover {
+            text-decoration: underline;
+        }
+
+        .update-frequency {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .update-frequency.daily {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+        }
+
+        .update-frequency.weekly {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .update-frequency.monthly {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+        }
+
+        .methodology-section {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .methodology-section h2 {
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .methodology-section p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .methodology-section ul {
+            color: var(--text-secondary);
+            margin: 12px 0 12px 20px;
+        }
+
+        .disclaimer {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .disclaimer h3 {
+            color: #FCA5A5;
+            margin-bottom: 12px;
+        }
+
+        .disclaimer p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .cities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="header">
+            <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
+            <h1>Data Sources</h1>
+            <p class="subtitle">Transparency in every health inspection we display</p>
+        </div>
+
+        <div class="intro-section">
+            <p>CleanPlate is committed to providing accurate, timely, and transparent restaurant health inspection data. We believe in complete transparency about where our information comes from and how we process it.</p>
+            
+            <div class="trust-badge">
+                <strong>🏛️ Official Government Data Only:</strong> All restaurant health inspection information is sourced exclusively from official city and county health department databases. We do not use user-generated content or third-party review sites for health inspection data.
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2 style="font-size: 1.8rem; font-weight: 600; color: var(--gold); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border-gold);">📊 Current Data Coverage</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <div class="stat-label">Major Cities</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">25K+</span>
+                    <div class="stat-label">Restaurants</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">800K+</span>
+                    <div class="stat-label">Inspection Records</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24hrs</span>
+                    <div class="stat-label">Update Frequency</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="font-size: 2rem; font-weight: 600; color: var(--gold); margin: 40px 0 30px 0; text-align: center;">🏙️ City Data Sources</h2>
+
+        <div class="cities-grid">
+            <div class="city-card">
+                <div class="city-header">
+                    <span class="city-icon">🗽</span>
+                    <h3 class="city-name">New York City</h3>
+                </div>
+                <div class="city-info">
+                    <strong>Agency:</strong> <span>NYC Department of Health and Mental Hygiene</span>
+                </div>
+                <div class="city-info">
+                    <strong>Coverage:</strong> <span>All 5 boroughs (Manhattan, Brooklyn, Queens, Bronx, Staten Island)</span>
+                </div>
+                <div class="city-info">
+                    <strong>API Type:</strong> <span>Comprehensive SODA API</span>
+                </div>
+                <div class="data-source">
+                    <div class="source-name">Restaurant Inspection Results</div>
+                    <a href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j" class="source-url" target="_blank">data.cityofnewyork.us - Restaurant Inspections</a>
+                </div>
+                <div class="update-frequency daily">📅 Updated Daily</div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-header">
+                    <span class="city-icon">🏙️</span>
+                    <h3 class="city-name">Chicago</h3>
+                </div>
+                <div class="city-info">
+                    <strong>Agency:</strong> <span>Chicago Department of Public Health</span>
+                </div>
+                <div class="city-info">
+                    <strong>Coverage:</strong> <span>Chicago metropolitan area</span>
+                </div>
+                <div class="city-info">
+                    <strong>API Type:</strong> <span>Robust SODA API</span>
+                </div>
+                <div class="data-source">
+                    <div class="source-name">Food Inspections</div>
+                    <a href="https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5" class="source-url" target="_blank">data.cityofchicago.org - Food Inspections</a>
+                </div>
+                <div class="update-frequency daily">📅 Updated Daily</div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-header">
+                    <span class="city-icon">🦞</span>
+                    <h3 class="city-name">Boston</h3>
+                </div>
+                <div class="city-info">
+                    <strong>Agency:</strong> <span>Boston Public Health Commission</span>
+                </div>
+                <div class="city-info">
+                    <strong>Coverage:</strong> <span>City of Boston</span>
+                </div>
+                <div class="city-info">
+                    <strong>API Type:</strong> <span>Working CKAN API</span>
+                </div>
+                <div class="data-source">
+                    <div class="source-name">Food Establishment Inspections</div>
+                    <a href="https://data.boston.gov/dataset/food-establishment-inspections" class="source-url" target="_blank">data.boston.gov - Food Inspections</a>
+                </div>
+                <div class="update-frequency weekly">📅 Updated Weekly</div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-header">
+                    <span class="city-icon">🤠</span>
+                    <h3 class="city-name">Austin</h3>
+                </div>
+                <div class="city-info">
+                    <strong>Agency:</strong> <span>Austin Public Health</span>
+                </div>
+                <div class="city-info">
+                    <strong>Coverage:</strong> <span>Austin-Travis County</span>
+                </div>
+                <div class="city-info">
+                    <strong>API Type:</strong> <span>Reliable SODA API</span>
+                </div>
+                <div class="data-source">
+                    <div class="source-name">Restaurant Inspection Scores</div>
+                    <a href="https://data.austintexas.gov/Health-and-Community-Services/Restaurant-Inspection-Scores/ecmv-9xxi" class="source-url" target="_blank">data.austintexas.gov - Inspection Scores</a>
+                </div>
+                <div class="update-frequency daily">📅 Updated Daily</div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-header">
+                    <span class="city-icon">☕</span>
+                    <h3 class="city-name">Seattle</h3>
+                </div>
+                <div class="city-info">
+                    <strong>Agency:</strong> <span>Seattle & King County Public Health</span>
+                </div>
+                <div class="city-info">
+                    <strong>Coverage:</strong> <span>King County</span>
+                </div>
+                <div class="city-info">
+                    <strong>API Type:</strong> <span>Consistent SODA API</span>
+                </div>
+                <div class="data-source">
+                    <div class="source-name">Food Establishment Inspection Data</div>
+                    <a href="https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5" class="source-url" target="_blank">data.kingcounty.gov - Food Inspections</a>
+                </div>
+                <div class="update-frequency daily">📅 Updated Daily</div>
+            </div>
+        </div>
+
+        <div class="methodology-section">
+            <h2>🔬 Data Processing & Quality Assurance</h2>
+            <p><strong>Automated Sync:</strong> CleanPlate connects directly to each city's health department API. Our systems automatically retrieve new inspection data every 24 hours to ensure freshness.</p>
+
+            <p><strong>Data Validation:</strong> Every inspection record goes through automated validation checks to ensure data integrity. Any anomalies are flagged for manual review.</p>
+
+            <p><strong>Data Standardization:</strong> Since each city uses different grading systems and violation codes, we standardize the data presentation while preserving the original information. This allows users to easily compare restaurants across different cities.</p>
+        </div>
+
+        <div class="methodology-section">
+            <h2>🔄 Update Frequency & Reliability</h2>
+            <p><strong>Sync Schedule:</strong> CleanPlate automatically checks for new inspection data every 24 hours. However, the frequency of new data depends on how often each health department publishes updates:</p>
+            
+            <ul>
+                <li><strong>Daily Updates:</strong> NYC, Chicago, Austin, Seattle (high-volume cities with frequent inspections)</li>
+                <li><strong>Weekly Updates:</strong> Boston (regular publishing schedule)</li>
+            </ul>
+
+            <p><strong>Data Freshness:</strong> The "Last Updated" timestamp shown in the app reflects when each city's health department last published new data, not when CleanPlate retrieved it. This ensures transparency about data currency.</p>
+
+            <p><strong>Reliability Monitoring:</strong> We continuously monitor our data sources for availability and consistency. If a source becomes unavailable, users are notified within the app, and we work to restore the connection as quickly as possible.</p>
+        </div>
+
+        <div class="disclaimer">
+            <h3>⚠️ Important Disclaimers</h3>
+            <p><strong>Data Accuracy:</strong> While we strive for accuracy, CleanPlate is not responsible for errors in the original government data sources. Users should verify current restaurant conditions independently.</p>
+            <p><strong>Inspection Timing:</strong> Health inspection data may not reflect the most recent restaurant conditions. Inspections occur at different intervals, and conditions can change between visits.</p>
+            <p><strong>Data Completeness:</strong> Not all restaurants in covered cities may appear in CleanPlate if they haven't been inspected recently or if they're not included in the public datasets.</p>
+            <p><strong>Third-Party Links:</strong> Links to official government websites are provided for transparency and verification. CleanPlate is not responsible for the content or availability of these external sites.</p>
+        </div>
+
+        <div class="methodology-section">
+            <h2>📧 Contact & Data Requests</h2>
+            <p>Have questions about our data sources or notice an issue with restaurant information? Contact our data team at <a href="mailto:ssage@cleanplateus.com" style="color: var(--gold);">ssage@cleanplateus.com</a></p>
+            
+            <p><strong>Data Quality Reports:</strong> If you notice inaccurate or outdated inspection information, please report it to us with the restaurant name, address, and the issue you've identified.</p>
+            
+            <p><strong>New City Requests:</strong> Interested in seeing CleanPlate coverage in your city? Email us with your city name and we'll investigate the availability of public health inspection APIs.</p>
+        </div>
+    </div>
+</body>
+</html>

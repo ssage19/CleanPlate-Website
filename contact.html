@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - CleanPlate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --champagne: #F7E7CE;
+            --dark-overlay: rgba(15, 15, 15, 0.85);
+            --success: #22C55E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #E5E7EB;
+            --text-muted: #9CA3AF;
+            --border: rgba(255, 255, 255, 0.15);
+            --border-gold: rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-overlay);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.8));
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--champagne);
+            transform: translateX(-5px);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-card {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-card .icon {
+            font-size: 1.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .contact-card a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: var(--champagne);
+        }
+
+        .contact-form {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+            background: linear-gradient(135deg, #F4C430, var(--gold));
+        }
+
+        .faq-section {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            margin-top: 40px;
+        }
+
+        .faq-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .response-time {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-form, .contact-card, .faq-section {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background-container">
+        <img src="background.jpg" alt="Culinary Background" class="background-image">
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="header">
+            <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
+            <h1>Contact Us</h1>
+            <p class="subtitle">Get in touch with the CleanPlate team</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3><span class="icon">📧</span> Email Support</h3>
+                <p>For general inquiries, feature requests, or technical support:</p>
+                <p><a href="mailto:ssage@cleanplateus.com">ssage@cleanplateus.com</a></p>
+                <p><strong>Response time:</strong> 24-48 hours</p>
+            </div>
+
+            <div class="contact-card">
+                <h3><span class="icon">🔒</span> Privacy & Legal</h3>
+                <p>For privacy concerns, legal matters, or data requests:</p>
+                <p><a href="mailto:ssage@cleanplateus.com">ssage@cleanplateus.com</a></p>
+                <p><strong>Response time:</strong> 48-72 hours</p>
+            </div>
+
+            <div class="contact-card">
+                <h3><span class="icon">🤝</span> Business Partnerships</h3>
+                <p>For partnership opportunities, business inquiries, or media requests:</p>
+                <p><a href="mailto:ssage@cleanplateus.com">ssage@cleanplateus.com</a></p>
+                <p><strong>Response time:</strong> 3-5 business days</p>
+            </div>
+
+            <div class="contact-card">
+                <h3><span class="icon">🏢</span> General Information</h3>
+                <p><strong>Website:</strong> <a href="https://cleanplateus.com">cleanplateus.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:ssage@cleanplateus.com">ssage@cleanplateus.com</a></p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2 class="form-title">Send us a Message</h2>
+            <form action="#" method="POST" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Please select a topic</option>
+                        <option value="technical-support">Technical Support</option>
+                        <option value="feature-request">Feature Request</option>
+                        <option value="data-question">Data Question</option>
+                        <option value="partnership">Partnership Inquiry</option>
+                        <option value="privacy">Privacy Concern</option>
+                        <option value="bug-report">Bug Report</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" placeholder="Please provide as much detail as possible to help us assist you better..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+
+                <div class="response-time">
+                    <strong>📱 Expected Response Time: 24-48 hours</strong><br>
+                    For urgent technical issues, please email ssage@cleanplateus.com directly
+                </div>
+            </form>
+        </div>
+
+        <div class="faq-section">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">❓ How do I report incorrect restaurant information?</div>
+                <div class="faq-answer">If you notice incorrect health inspection data, please email us at ssage@cleanplateus.com with the restaurant name, location, and specific details about the discrepancy. We source our data from official health departments, so we'll investigate and coordinate with the appropriate authorities.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Can you add my city to CleanPlate?</div>
+                <div class="faq-answer">We're always looking to expand to new cities! Email ssage@cleanplateus.com with your city name and we'll investigate the availability of health inspection data from your local health department.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ Do you accept restaurant advertising or sponsorships?</div>
+                <div class="faq-answer">To maintain transparency and trust, CleanPlate does not accept restaurant advertising or paid sponsorships. We do have affiliate partnerships with food delivery services, which are clearly disclosed. For other partnership inquiries, contact ssage@cleanplateus.com.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ How often is restaurant data updated?</div>
+                <div class="faq-answer">We sync with health department databases regularly, typically every 24-48 hours. However, the frequency of updates depends on how often each health department publishes new inspection data. Some cities update daily, others weekly or monthly.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.name || !data.email || !data.subject || !data.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // In a real implementation, you'd send this to your backend
+            console.log('Form submission:', data);
+            
+            // Show success message
+            alert('Thank you for your message! We\'ll get back to you within 24-48 hours.');
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
