@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanPlate - Restaurant Health Inspection App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>CleanPlate - Restaurant Health Inspections Made Simple</title>
+    <meta name="description" content="Discover restaurant health inspection grades and safety scores across major U.S. cities. Make informed dining decisions with CleanPlate.">
+    <meta name="keywords" content="restaurant health inspections, food safety, restaurant grades, dining safety">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="CleanPlate - Restaurant Health Inspections">
+    <meta property="og:description" content="Your trusted guide to restaurant health inspections across major U.S. cities">
+    <meta property="og:image" content="cleanplate-logo.png">
+    <meta property="og:url" content="https://cleanplate.app">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" type="image/png" href="cleanplate-logo.png">
+    
     <style>
         :root {
             --gold: #D4AF37;
             --champagne: #F7E7CE;
-            --dark-overlay: rgba(15, 15, 15, 0.85);
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --border: rgba(255, 255, 255, 0.1);
+            --border-gold: rgba(212, 175, 55, 0.3);
             --success: #22C55E;
             --warning: #F59E0B;
             --error: #EF4444;
-            --text-primary: #FFFFFF;
-            --text-secondary: #E5E7EB;
-            --text-muted: #9CA3AF;
-            --border: rgba(255, 255, 255, 0.15);
-            --border-gold: rgba(212, 175, 55, 0.3);
         }
 
         * {
@@ -27,13 +39,14 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--dark-bg);
             color: var(--text-primary);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Background Container */
+        /* Background */
         .background-container {
             position: fixed;
             top: 0;
@@ -47,102 +60,157 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
+            opacity: 0.15;
         }
 
         .background-overlay {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--dark-overlay);
-            z-index: -1;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 10, 0.9) 0%,
+                rgba(20, 20, 20, 0.85) 50%,
+                rgba(10, 10, 10, 0.9) 100%
+            );
         }
 
-        /* Main Content */
         .main-container {
+            position: relative;
+            z-index: 1;
             min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav-header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
             position: relative;
         }
 
-        /* Header Section */
+        .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Header */
         .header-section {
-            padding: 60px 20px;
             text-align: center;
-            max-width: 1200px;
+            padding: 60px 20px 40px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .logo-container {
             margin-bottom: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .logo {
-            width: 200px;
-            height: auto;
+            height: 80px;
+            width: auto;
+            margin: 0 auto 20px;
+            display: block;
             filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.8));
-            transition: transform 0.3s ease;
         }
 
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .app-title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
+        h1 {
+            font-size: 3rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            line-height: 1.2;
             color: var(--gold);
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
             margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--gold), var(--champagne));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         }
 
         .app-subtitle {
-            font-size: clamp(1rem, 3vw, 1.25rem);
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 1.2rem;
             color: var(--text-secondary);
-            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
             margin-bottom: 32px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Brand Tagline */
-        .brand-section {
-            background: rgba(212, 175, 55, 0.15);
-            margin: 32px 20px;
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid var(--border-gold);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            backdrop-filter: blur(10px);
+        .grades-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0;
         }
 
-        .brand-saying {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--gold);
-            text-align: center;
-            line-height: 1.5;
-            letter-spacing: 0.5px;
-        }
-
-        /* Features Section */
+        /* Features */
         .features-section {
-            padding: 60px 20px;
+            padding: 40px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -229,9 +297,9 @@
 
         .city-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 16px;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
@@ -244,6 +312,7 @@
             color: var(--text-primary);
             transition: all 0.3s ease;
             cursor: pointer;
+            text-align: center;
         }
 
         .city-item:hover {
@@ -251,6 +320,12 @@
             border-color: var(--gold);
             color: var(--gold);
             transform: scale(1.05);
+        }
+
+        .city-icon {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
         }
 
         /* CTA Section */
@@ -292,43 +367,38 @@
             gap: 12px;
             background: linear-gradient(135deg, var(--gold), #B8941F);
             color: #000;
-            padding: 16px 32px;
+            padding: 16px 24px;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            min-width: 200px;
         }
 
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
-            background: linear-gradient(135deg, #F4C430, var(--gold));
-        }
-
-        .download-btn:active {
-            transform: translateY(0);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
         }
 
         /* Footer */
         .footer {
-            padding: 40px 20px 20px;
-            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
             border-top: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.3);
+            padding: 40px 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
         }
 
         .footer-content {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .footer-text {
             color: var(--text-muted);
-            font-size: 0.9rem;
             margin-bottom: 16px;
         }
 
@@ -337,17 +407,17 @@
             justify-content: center;
             gap: 24px;
             flex-wrap: wrap;
+            margin-bottom: 16px;
         }
 
         .footer-link {
-            color: var(--text-secondary);
+            color: var(--gold);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .footer-link:hover {
-            color: var(--gold);
+            color: var(--champagne);
         }
 
         /* Animations */
@@ -363,17 +433,31 @@
         }
 
         .animate-in {
-            animation: fadeInUp 0.6s ease-out;
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        /* Responsive Design */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .header-section {
-                padding: 40px 16px;
+            .nav-links {
+                display: none;
             }
 
-            .features-section {
-                padding: 40px 16px;
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .city-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .city-item {
+                padding: 12px 8px;
+                font-size: 0.9rem;
             }
 
             .features-grid {
@@ -397,13 +481,7 @@
             }
         }
 
-        @media (max-width: 480px) {
-            .city-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Grade badges like in the app */
+        /* Grade badges */
         .grade-badge {
             display: inline-flex;
             align-items: center;
@@ -419,15 +497,6 @@
         .grade-a { background-color: var(--success); color: white; }
         .grade-b { background-color: var(--warning); color: white; }
         .grade-c { background-color: var(--error); color: white; }
-
-        /* Health grades showcase */
-        .grades-showcase {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin: 20px 0;
-        }
     </style>
 </head>
 <body>
@@ -438,14 +507,32 @@
     </div>
 
     <div class="main-container">
+        <!-- Navigation -->
+        <nav class="nav-header">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo">
+                    <img src="cleanplate-logo.png" alt="CleanPlate Logo">
+                    <span>CleanPlate</span>
+                </a>
+                <div class="nav-links">
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="data-sources.html" class="nav-link">Data Sources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="privacy-policy.html" class="nav-link">Privacy</a>
+                    <a href="terms-of-service.html" class="nav-link">Terms</a>
+                </div>
+                <button class="mobile-menu-btn">☰</button>
+            </div>
+        </nav>
+
         <!-- Header Section -->
         <section class="header-section animate-in">
             <div class="logo-container">
                 <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
             </div>
-            <p class="app-subtitle">Your trusted guide to restaurant health inspections across major U.S. cities</p>
+            <h1>CleanPlate</h1>
+            <p class="app-subtitle">Your trusted guide to restaurant health inspections across 5 major U.S. cities</p>
             
-            <!-- Health Grades Showcase -->
             <div class="grades-showcase">
                 <span class="grade-badge grade-a">A</span>
                 <span class="grade-badge grade-b">B</span>
@@ -453,37 +540,36 @@
             </div>
         </section>
 
-        <!-- Brand Section -->
-        <section class="brand-section animate-in">
-            <p class="brand-saying">
-                🍽️ "Transparency in every bite - Make informed dining decisions with real-time health inspection data"
-            </p>
-        </section>
-
-        <!-- Features Section -->
+        <!-- Features -->
         <section class="features-section">
-            <h2 class="features-title animate-in">Everything You Need to Dine Safely</h2>
+            <h2 class="features-title">🍽️ Everything You Need to Dine Safely</h2>
             <div class="features-grid">
                 <div class="feature-card animate-in">
                     <span class="feature-icon">🔍</span>
                     <h3 class="feature-title">Smart Restaurant Search</h3>
-                    <p class="feature-description">Search restaurants by city with intelligent autocomplete. Get instant access to health grades, violation summaries, and inspection dates.</p>
+                    <p class="feature-description">Search thousands of restaurants by name, location, or cuisine type across our 5 covered metropolitan areas.</p>
                 </div>
 
                 <div class="feature-card animate-in">
                     <span class="feature-icon">📊</span>
-                    <h3 class="feature-title">Detailed Health Reports</h3>
-                    <p class="feature-description">View complete health inspection reports with violation details, location mapping, and historical inspection data.</p>
+                    <h3 class="feature-title">Health Grade Transparency</h3>
+                    <p class="feature-description">View official health inspection grades, scores, and detailed violation reports from city health departments.</p>
                 </div>
 
                 <div class="feature-card animate-in">
-                    <span class="feature-icon">🚗</span>
-                    <h3 class="feature-title">Order with Confidence</h3>
-                    <p class="feature-description">Seamlessly order from verified restaurants through integrated delivery partners - DoorDash, Uber Eats, and Grubhub.</p>
+                    <span class="feature-icon">📍</span>
+                    <h3 class="feature-title">Location-Based Results</h3>
+                    <p class="feature-description">Filter by specific neighborhoods and areas to find the cleanest restaurants near you.</p>
                 </div>
 
                 <div class="feature-card animate-in">
-                    <span class="feature-icon">🌟</span>
+                    <span class="feature-icon">🗺️</span>
+                    <h3 class="feature-title">Interactive Maps</h3>
+                    <p class="feature-description">View restaurant locations on interactive maps with detailed address information and directions.</p>
+                </div>
+
+                <div class="feature-card animate-in">
+                    <span class="feature-icon">⭐</span>
                     <h3 class="feature-title">Trending & Favorites</h3>
                     <p class="feature-description">Discover restaurants with recent A+ scores and save your favorite cities for quick access.</p>
                 </div>
@@ -493,28 +579,34 @@
                     <h3 class="feature-title">Dark Mode Design</h3>
                     <p class="feature-description">Elegant, easy-on-the-eyes interface optimized for viewing restaurant data day or night.</p>
                 </div>
-
-                <div class="feature-card animate-in">
-                    <span class="feature-icon">🏆</span>
-                    <h3 class="feature-title">Grade-Based Insights</h3>
-                    <p class="feature-description">Color-coded health grades (A, B, C) with detailed violation breakdowns to help you make informed choices.</p>
-                </div>
             </div>
         </section>
 
         <!-- City Explorer -->
         <section class="city-explorer animate-in">
-            <h2 class="city-title">🏙️ Explore Major Cities</h2>
-            <p class="city-subtitle">CleanPlate covers restaurant inspections across these major metropolitan areas</p>
+            <h2 class="city-title">🏙️ Explore Our 5 Supported Cities</h2>
+            <p class="city-subtitle">CleanPlate covers restaurant inspections across these major metropolitan areas with reliable API access</p>
             <div class="city-grid">
-                <div class="city-item">New York</div>
-                <div class="city-item">San Francisco</div>
-                <div class="city-item">Chicago</div>
-                <div class="city-item">Los Angeles</div>
-                <div class="city-item">Miami</div>
-                <div class="city-item">Boston</div>
-                <div class="city-item">Seattle</div>
-                <div class="city-item">Austin</div>
+                <div class="city-item">
+                    <span class="city-icon">🗽</span>
+                    <div>New York City</div>
+                </div>
+                <div class="city-item">
+                    <span class="city-icon">🏙️</span>
+                    <div>Chicago</div>
+                </div>
+                <div class="city-item">
+                    <span class="city-icon">🦞</span>
+                    <div>Boston</div>
+                </div>
+                <div class="city-item">
+                    <span class="city-icon">🤠</span>
+                    <div>Austin</div>
+                </div>
+                <div class="city-item">
+                    <span class="city-icon">☕</span>
+                    <div>Seattle</div>
+                </div>
             </div>
         </section>
 
@@ -545,96 +637,31 @@
                     © 2025 CleanPlate. Making dining decisions safer, one inspection at a time.
                 </p>
                 <div class="footer-links">
-                    <a href="#" class="footer-link">Privacy Policy</a>
-                    <a href="#" class="footer-link">Terms of Service</a>
-                    <a href="#" class="footer-link">Contact</a>
-                    <a href="#" class="footer-link">About</a>
-                    <a href="#" class="footer-link">Data Sources</a>
+                    <a href="about.html" class="footer-link">About</a>
+                    <a href="data-sources.html" class="footer-link">Data Sources</a>
+                    <a href="contact.html" class="footer-link">Contact</a>
+                    <a href="privacy-policy.html" class="footer-link">Privacy</a>
+                    <a href="terms-of-service.html" class="footer-link">Terms</a>
                 </div>
+                <p style="color: var(--text-muted); font-size: 0.8rem;">
+                    All health inspection data sourced from official city health departments
+                </p>
             </div>
         </footer>
     </div>
 
     <script>
-        // Simple scroll animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all animate-in elements
-        document.addEventListener('DOMContentLoaded', () => {
-            const animateElements = document.querySelectorAll('.animate-in');
-            animateElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'all 0.6s ease-out';
-                observer.observe(el);
-            });
-
-            // Add hover effects to city items
-            document.querySelectorAll('.city-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    alert(`🏙️ Coming soon to ${item.textContent}!`);
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
                 });
-            });
-        });
-
-        // Add some interactive sparkle
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.cssText = `
-                position: fixed;
-                width: 4px;
-                height: 4px;
-                background: var(--gold);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 1000;
-                opacity: 0.8;
-                animation: sparkleAnimation 1.5s ease-out forwards;
-            `;
-            
-            sparkle.style.left = Math.random() * window.innerWidth + 'px';
-            sparkle.style.top = Math.random() * window.innerHeight + 'px';
-            
-            document.body.appendChild(sparkle);
-            
-            setTimeout(() => sparkle.remove(), 1500);
-        }
-
-        // Add sparkle animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes sparkleAnimation {
-                0% {
-                    opacity: 0;
-                    transform: scale(0) rotate(0deg);
-                }
-                50% {
-                    opacity: 1;
-                    transform: scale(1) rotate(180deg);
-                }
-                100% {
-                    opacity: 0;
-                    transform: scale(0) rotate(360deg);
-                }
             }
-        `;
-        document.head.appendChild(style);
-
-        // Create occasional sparkles
-        setInterval(createSparkle, 3000);
+        });
     </script>
 </body>
 </html>
