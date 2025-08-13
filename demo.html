@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try CleanPlate - Web Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --champagne: #F7E7CE;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --border: rgba(255, 255, 255, 0.1);
+            --border-gold: rgba(212, 175, 55, 0.3);
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.7);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--champagne);
+            transform: translateX(-5px);
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+            max-width: 300px;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.8));
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .demo-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .demo-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--border-gold);
+        }
+
+        .app-interface {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: #1a202c;
+            color: var(--text-primary);
+        }
+
+        .search-button {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .search-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .search-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--gold);
+            display: none;
+        }
+
+        .loading-state.show {
+            display: block;
+        }
+
+        .results-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .restaurant-card {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .restaurant-info {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .restaurant-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .restaurant-address {
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .inspection-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .grade-section {
+            text-align: center;
+        }
+
+        .grade-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .grade-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .grade-a, .grade-pass { background-color: var(--success); }
+        .grade-b { background-color: var(--warning); }
+        .grade-c, .grade-fail { background-color: var(--error); }
+        .grade-pending { background-color: var(--text-muted); }
+
+        .violations-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .violations-toggle {
+            background: none;
+            border: none;
+            color: var(--warning);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .violations-list {
+            display: none;
+        }
+
+        .violations-list.show {
+            display: block;
+        }
+
+        .violation-item {
+            background: rgba(239, 68, 68, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid var(--error);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .delivery-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .delivery-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .delivery-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .delivery-btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .delivery-btn:hover {
+            opacity: 0.8;
+        }
+
+        .doordash { background-color: #FF3008; }
+        .ubereats { background-color: #06C167; }
+        .grubhub { background-color: #FF8000; }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: var(--error);
+            text-align: center;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .demo-footer {
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .download-cta {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: #000;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .restaurant-info {
+                margin-right: 0;
+            }
+
+            .delivery-buttons {
+                flex-direction: column;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="demo-header">
+            <img src="cleanplate-logo.png" alt="CleanPlate Logo" class="logo">
+            <p class="demo-subtitle">Experience the power of transparent restaurant health inspections</p>
+            <span class="demo-badge">Interactive Web Demo</span>
+        </div>
+
+        <div class="app-interface">
+            <div class="search-header">
+                <h2 class="search-title">🔍 Restaurant Health Search</h2>
+            </div>
+
+            <form id="searchForm">
+                <div class="form-group">
+                    <label class="form-label" for="restaurantName">Restaurant Name</label>
+                    <input 
+                        type="text" 
+                        id="restaurantName" 
+                        class="form-input" 
+                        placeholder="e.g., 'Pizza Palace', 'Sushi Bar', 'Mexican Grill'"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="citySelect">Select City</label>
+                    <select id="citySelect" class="form-select" required>
+                        <option value="">Choose a city...</option>
+                        <option value="NYC">🗽 New York City, NY</option>
+                        <option value="Chicago">🏙️ Chicago, IL</option>
+                        <option value="Boston">🦞 Boston, MA</option>
+                        <option value="Austin">🤠 Austin, TX</option>
+                        <option value="Seattle">☕ Seattle, WA</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="search-button" id="searchBtn">
+                    🔍 Search Restaurants
+                </button>
+            </form>
+
+            <div class="loading-state" id="loadingState">
+                <h3>🔍 Searching restaurants...</h3>
+                <p>Fetching the latest health inspection data</p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                <h3>❌ Search Error</h3>
+                <p id="errorText">Something went wrong. Please try again.</p>
+            </div>
+
+            <div class="results-section" id="resultsSection">
+                <h3 class="results-title" id="resultsTitle">🍽️ Search Results</h3>
+                <div id="restaurantResults"></div>
+            </div>
+        </div>
+
+        <div class="demo-footer">
+            <h3 class="download-cta">Ready for the full experience?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                Download CleanPlate for iOS and Android to access all features, including GPS location, 
+                push notifications for inspection updates, and offline favorites.
+            </p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn" onclick="alert('Coming soon to App Store!')">
+                    🍎 Download for iOS
+                </a>
+                <a href="#" class="download-btn" onclick="alert('Coming soon to Google Play!')">
+                    🤖 Download for Android
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real Health Inspection API adapted for web
+        class WebHealthAPI {
+            constructor() {
+                this.endpoints = {
+                    NYC: 'https://data.cityofnewyork.us/resource/43nn-pn8j.json',
+                    Chicago: 'https://data.cityofchicago.org/resource/4ijn-s7e5.json',
+                    Boston: 'https://data.boston.gov/api/3/action/datastore_search',
+                    Austin: 'https://data.austintexas.gov/resource/ecmv-9xxi.json',
+                    Seattle: 'https://data.kingcounty.gov/resource/f29f-zza5.json'
+                };
+            }
+
+            async searchRestaurants(searchTerm, city) {
+                try {
+                    console.log(`🚀 Searching for "${searchTerm}" in ${city}`);
+                    
+                    let data = [];
+                    switch (city) {
+                        case 'NYC':
+                            data = await this.searchNYC(searchTerm);
+                            break;
+                        case 'Chicago':
+                            data = await this.searchChicago(searchTerm);
+                            break;
+                        case 'Boston':
+                            data = await this.searchBoston(searchTerm);
+                            break;
+                        case 'Austin':
+                            data = await this.searchAustin(searchTerm);
+                            break;
+                        case 'Seattle':
+                            data = await this.searchSeattle(searchTerm);
+                            break;
+                        default:
+                            throw new Error(`City ${city} not supported`);
+                    }
+                    
+                    return data.slice(0, 10); // Limit to 10 results for demo
+                } catch (error) {
+                    console.error('API Error:', error);
+                    throw error;
+                }
+            }
+
+            async searchNYC(searchTerm) {
+                const params = new URLSearchParams({
+                    '$where': `UPPER(dba) like UPPER('%${searchTerm}%')`,
+                    '$limit': '20',
+                    '$order': 'inspection_date DESC'
+                });
+                
+                const response = await fetch(`${this.endpoints.NYC}?${params}`);
+                if (!response.ok) throw new Error('NYC API error');
+                
+                const data = await response.json();
+                return this.processNYCData(data);
+            }
+
+            async searchChicago(searchTerm) {
+                const params = new URLSearchParams({
+                    '$where': `UPPER(dba_name) like UPPER('%${searchTerm}%')`,
+                    '$limit': '20',
+                    '$order': 'inspection_date DESC'
+                });
+                
+                const response = await fetch(`${this.endpoints.Chicago}?${params}`);
+                if (!response.ok) throw new Error('Chicago API error');
+                
+                const data = await response.json();
+                return this.processChicagoData(data);
+            }
+
+            async searchBoston(searchTerm) {
+                const params = new URLSearchParams({
+                    resource_id: '4582bec6-2b4f-4f9e-bc55-cbaa73117f4c',
+                    q: searchTerm,
+                    limit: '20'
+                });
+                
+                const response = await fetch(`${this.endpoints.Boston}?${params}`);
+                if (!response.ok) throw new Error('Boston API error');
+                
+                const result = await response.json();
+                const data = result.result?.records || [];
+                return this.processBostonData(data);
+            }
+
+            async searchAustin(searchTerm) {
+                const params = new URLSearchParams({
+                    '$where': `UPPER(restaurant_name) like UPPER('%${searchTerm}%')`,
+                    '$limit': '20',
+                    '$order': 'inspection_date DESC'
+                });
+                
+                const response = await fetch(`${this.endpoints.Austin}?${params}`);
+                if (!response.ok) throw new Error('Austin API error');
+                
+                const data = await response.json();
+                return this.processAustinData(data);
+            }
+
+            async searchSeattle(searchTerm) {
+                const params = new URLSearchParams({
+                    '$where': `UPPER(name) like UPPER('%${searchTerm}%')`,
+                    '$limit': '20',
+                    '$order': 'inspection_date DESC'
+                });
+                
+                const response = await fetch(`${this.endpoints.Seattle}?${params}`);
+                if (!response.ok) throw new Error('Seattle API error');
+                
+                const data = await response.json();
+                return this.processSeattleData(data);
+            }
+
+            processNYCData(data) {
+                const restaurantMap = new Map();
+                
+                data.forEach(item => {
+                    const name = item.dba || 'Unknown Restaurant';
+                    const address = this.formatAddress([item.building, item.street, item.boro, 'NY']);
+                    const key = `${name}_${address}`;
+                    
+                    if (!restaurantMap.has(key)) {
+                        restaurantMap.set(key, {
+                            name,
+                            grade: item.grade || 'Pending',
+                            address,
+                            violations: item.violation_description ? [item.violation_description] : [],
+                            inspectionDate: this.formatDate(item.inspection_date),
+                            phone: item.phone || ''
+                        });
+                    }
+                });
+                
+                return Array.from(restaurantMap.values());
+            }
+
+            processChicagoData(data) {
+                const restaurantMap = new Map();
+                
+                data.forEach(item => {
+                    const name = item.dba_name || 'Unknown Restaurant';
+                    const address = this.formatAddress([item.address, 'Chicago', 'IL']);
+                    const key = `${name}_${address}`;
+                    
+                    if (!restaurantMap.has(key)) {
+                        restaurantMap.set(key, {
+                            name,
+                            grade: this.mapChicagoResult(item.results),
+                            address,
+                            violations: item.violations ? [item.violations] : [],
+                            inspectionDate: this.formatDate(item.inspection_date),
+                            phone: ''
+                        });
+                    }
+                });
+                
+                return Array.from(restaurantMap.values());
+            }
+
+            processBostonData(data) {
+                const restaurantMap = new Map();
+                
+                data.forEach(item => {
+                    const name = item.businessname || item.business_name || 'Unknown Restaurant';
+                    const address = this.formatAddress([item.address, 'Boston', 'MA']);
+                    const key = `${name}_${address}`;
+                    
+                    if (!restaurantMap.has(key)) {
+                        const violationLevel = item.viollevel || item.violation_level;
+                        restaurantMap.set(key, {
+                            name,
+                            grade: this.mapBostonGrade(violationLevel),
+                            address,
+                            violations: violationLevel && violationLevel !== '*' ? 
+                                [`Violation Level: ${violationLevel}`] : [],
+                            inspectionDate: this.formatDate(item.inspectiondate),
+                            phone: ''
+                        });
+                    }
+                });
+                
+                return Array.from(restaurantMap.values());
+            }
+
+            processAustinData(data) {
+                const restaurantMap = new Map();
+                
+                data.forEach(item => {
+                    const name = item.restaurant_name || 'Unknown Restaurant';
+                    const address = this.formatAddress([item.address, 'Austin', 'TX']);
+                    const key = `${name}_${address}`;
+                    
+                    if (!restaurantMap.has(key)) {
+                        restaurantMap.set(key, {
+                            name,
+                            grade: this.mapAustinScore(item.score),
+                            address,
+                            violations: this.getAustinViolations(item.score),
+                            inspectionDate: this.formatDate(item.inspection_date),
+                            phone: ''
+                        });
+                    }
+                });
+                
+                return Array.from(restaurantMap.values());
+            }
+
+            processSeattleData(data) {
+                const restaurantMap = new Map();
+                
+                data.forEach(item => {
+                    const name = item.name || 'Unknown Restaurant';
+                    const address = this.formatAddress([item.address, 'Seattle', 'WA']);
+                    const key = `${name}_${address}`;
+                    
+                    if (!restaurantMap.has(key)) {
+                        restaurantMap.set(key, {
+                            name,
+                            grade: item.inspection_result || 'Pending',
+                            address,
+                            violations: item.violation_description ? [item.violation_description] : [],
+                            inspectionDate: this.formatDate(item.inspection_date),
+                            phone: item.phone || ''
+                        });
+                    }
+                });
+                
+                return Array.from(restaurantMap.values());
+            }
+
+            mapChicagoResult(result) {
+                if (!result) return 'Pending';
+                const res = result.toLowerCase();
+                if (res.includes('pass')) return 'Pass';
+                if (res.includes('fail')) return 'Fail';
+                return 'Pending';
+            }
+
+            mapBostonGrade(violationLevel) {
+                if (!violationLevel || violationLevel === '*') return 'A';
+                const level = violationLevel.toLowerCase();
+                if (level.includes('high')) return 'C';
+                if (level.includes('medium')) return 'B';
+                return 'A';
+            }
+
+            mapAustinScore(score) {
+                const numScore = typeof score === 'string' ? parseInt(score) : score;
+                if (isNaN(numScore)) return 'Pending';
+                if (numScore >= 90) return 'A';
+                if (numScore >= 80) return 'B';
+                if (numScore >= 70) return 'C';
+                return 'F';
+            }
+
+            getAustinViolations(score) {
+                const numScore = typeof score === 'string' ? parseFloat(score) : score;
+                if (isNaN(numScore)) return [];
+                if (numScore < 70) return ['Multiple health code violations found'];
+                if (numScore < 80) return ['Minor health code violations noted'];
+                if (numScore < 90) return ['Few minor violations observed'];
+                return [];
+            }
+
+            formatAddress(parts) {
+                return parts.filter(part => part && part.trim()).join(', ');
+            }
+
+            formatDate(dateStr) {
+                if (!dateStr) return 'Unknown';
+                try {
+                    const date = new Date(dateStr);
+                    return date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                } catch {
+                    return 'Unknown';
+                }
+            }
+        }
+
+        // UI Management
+        class DemoApp {
+            constructor() {
+                this.api = new WebHealthAPI();
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                const searchForm = document.getElementById('searchForm');
+                searchForm.addEventListener('submit', (e) => this.handleSearch(e));
+            }
+
+            async handleSearch(e) {
+                e.preventDefault();
+                
+                const restaurantName = document.getElementById('restaurantName').value.trim();
+                const city = document.getElementById('citySelect').value;
+                
+                if (!restaurantName || !city) {
+                    this.showError('Please enter a restaurant name and select a city.');
+                    return;
+                }
+
+                this.showLoading();
+                this.hideError();
+                this.hideResults();
+
+                try {
+                    const results = await this.api.searchRestaurants(restaurantName, city);
+                    this.hideLoading();
+                    
+                    if (results.length === 0) {
+                        this.showError(`No restaurants found for "${restaurantName}" in ${city}. Try a different search term.`);
+                    } else {
+                        this.showResults(results, restaurantName, city);
+                    }
+                } catch (error) {
+                    this.hideLoading();
+                    this.showError(`Search failed: ${error.message}. Please try again.`);
+                }
+            }
+
+            showLoading() {
+                document.getElementById('loadingState').classList.add('show');
+            }
+
+            hideLoading() {
+                document.getElementById('loadingState').classList.remove('show');
+            }
+
+            showError(message) {
+                document.getElementById('errorText').textContent = message;
+                document.getElementById('errorMessage').classList.add('show');
+            }
+
+            hideError() {
+                document.getElementById('errorMessage').classList.remove('show');
+            }
+
+            showResults(results, searchTerm, city) {
+                document.getElementById('resultsTitle').textContent = 
+                    `🍽️ Found ${results.length} restaurant${results.length !== 1 ? 's' : ''} for "${searchTerm}" in ${city}`;
+                
+                const resultsContainer = document.getElementById('restaurantResults');
+                resultsContainer.innerHTML = '';
+
+                results.forEach((restaurant, index) => {
+                    const card = this.createRestaurantCard(restaurant);
+                    resultsContainer.appendChild(card);
+                });
+
+                document.getElementById('resultsSection').classList.add('show');
+            }
+
+            hideResults() {
+                document.getElementById('resultsSection').classList.remove('show');
+            }
+
+            createRestaurantCard(restaurant) {
+                const card = document.createElement('div');
+                card.className = 'restaurant-card';
+                
+                const gradeClass = this.getGradeClass(restaurant.grade);
+                const gradeLabel = this.getGradeLabel(restaurant.grade);
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="restaurant-info">
+                            <div class="restaurant-name">${restaurant.name}</div>
+                            <div class="restaurant-address">📍 ${restaurant.address}</div>
+                            <div class="inspection-date">📅 Last Inspection: ${restaurant.inspectionDate}</div>
+                        </div>
+                        <div class="grade-section">
+                            <div class="grade-badge ${gradeClass}">${restaurant.grade}</div>
+                            <div class="grade-label">${gradeLabel}</div>
+                        </div>
+                    </div>
+                    
+                    ${restaurant.violations.length > 0 ? `
+                        <div class="violations-section">
+                            <button class="violations-toggle" type="button" onclick="this.nextElementSibling.classList.toggle('show')">
+                                ⚠️ ${restaurant.violations.length} violation${restaurant.violations.length !== 1 ? 's' : ''} ▼
+                            </button>
+                            <div class="violations-list">
+                                ${restaurant.violations.map(violation => 
+                                    `<div class="violation-item">${violation}</div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="delivery-section">
+                        <div class="delivery-title">🚗 Order for Delivery</div>
+                        <div class="delivery-buttons">
+                            <button class="delivery-btn doordash" onclick="window.open('https://www.doordash.com/search/?q=${encodeURIComponent(restaurant.name)}', '_blank')">
+                                DoorDash
+                            </button>
+                            <button class="delivery-btn ubereats" onclick="window.open('https://www.ubereats.com/search?q=${encodeURIComponent(restaurant.name)}', '_blank')">
+                                Uber Eats
+                            </button>
+                            <button class="delivery-btn grubhub" onclick="window.open('https://www.grubhub.com/search?queryText=${encodeURIComponent(restaurant.name)}', '_blank')">
+                                Grubhub
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                return card;
+            }
+
+            getGradeClass(grade) {
+                const gradeUpper = grade.toUpperCase();
+                if (gradeUpper === 'A') return 'grade-a';
+                if (gradeUpper === 'B') return 'grade-b';
+                if (gradeUpper === 'C') return 'grade-c';
+                if (gradeUpper === 'F') return 'grade-c';
+                if (gradeUpper === 'PASS') return 'grade-a';
+                if (gradeUpper === 'FAIL') return 'grade-c';
+                return 'grade-pending';
+            }
+
+            getGradeLabel(grade) {
+                const gradeUpper = grade.toUpperCase();
+                if (gradeUpper === 'A') return 'Outstanding';
+                if (gradeUpper === 'B') return 'Good';
+                if (gradeUpper === 'C') return 'Fair';
+                if (gradeUpper === 'F') return 'Poor';
+                if (gradeUpper === 'PASS') return 'Passed';
+                if (gradeUpper === 'FAIL') return 'Failed';
+                return 'Not Rated';
+            }
+        }
+
+        // Initialize the demo app
+        document.addEventListener('DOMContentLoaded', () => {
+            new DemoApp();
+        });
+    </script>
+</body>
+</html>
