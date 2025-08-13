@@ -74,7 +74,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--dark-overlay);
+            background: rgba(10, 10, 10, 0.7);
             z-index: -1;
         }
 
@@ -102,6 +102,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         .nav-logo {
@@ -112,8 +113,111 @@
         }
 
         .nav-logo img {
-            height: 100px;
+            height: 80px;
             width: auto;
+        }
+
+        .nav-controls {
+            position: absolute;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--gold);
+            border-color: var(--border-gold);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            border: 1px solid var(--border-gold);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            margin-top: 5px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .demo-nav-btn {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .demo-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
         }
 
         .container {
@@ -144,7 +248,7 @@
         /* Header */
         .header-section {
             text-align: center;
-            padding: 20px 20px 40px;
+            padding: 60px 20px 40px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -154,7 +258,7 @@
         }
 
         .logo {
-            height: 80px;
+            height: 120px;
             width: auto;
             margin: 0 auto 20px;
             display: block;
@@ -186,6 +290,90 @@
             margin: 20px 0;
         }
 
+        /* Demo CTA Section */
+        .demo-cta-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+            border: 2px solid var(--border-gold);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+        }
+
+        .demo-cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .demo-cta-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .demo-cta-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .demo-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: #000;
+            padding: 18px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .demo-cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #F4C430, var(--gold));
+        }
+
+        .demo-badge {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 15px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
         /* Features */
         .features-section {
             padding: 40px 20px;
@@ -194,7 +382,7 @@
         }
 
         .features-title {
-            font-size: 2.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 48px;
@@ -416,8 +604,50 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .nav-container {
+                justify-content: space-between;
+                padding: 0 15px;
+            }
+
+            .nav-controls {
+                position: static;
+                right: auto;
+            }
+
+            .nav-logo img {
+                height: 60px;
+            }
+
+            .dropdown-content {
+                right: -20px;
+                min-width: 140px;
+            }
+
+            .demo-nav-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
             .app-subtitle {
                 font-size: 1.1rem;
+            }
+
+            .demo-cta-section {
+                margin: 30px 20px;
+                padding: 30px 20px;
+            }
+
+            .demo-cta-title {
+                font-size: 1.5rem;
+            }
+
+            .demo-cta-button {
+                padding: 16px 24px;
+                font-size: 1rem;
             }
 
             .city-grid {
@@ -504,8 +734,48 @@
                 <a href="index.html" class="nav-logo">
                     <img src="cleanplate-logo.png" alt="CleanPlate Logo">
                 </a>
+                <div class="nav-controls">
+                    <div class="dropdown">
+                        <button class="dropdown-btn">
+                            Menu
+                            <span>▼</span>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="about.html">About</a>
+                            <a href="data-sources.html">Data Sources</a>
+                            <a href="contact.html">Contact</a>
+                        </div>
+                    </div>
+                    <a href="demo.html" class="demo-nav-btn">🚀 Try Demo</a>
+                </div>
             </div>
         </nav>
+
+        <!-- Header Section -->
+        <section class="header-section animate-in">
+            <p class="app-subtitle">Your trusted guide to restaurant health inspections across major U.S. cities</p>
+            
+            <div class="grades-showcase">
+                <span class="grade-badge grade-a">A</span>
+                <span class="grade-badge grade-b">B</span>
+                <span class="grade-badge grade-c">C</span>
+            </div>
+        </section>
+
+        <!-- Demo CTA Section -->
+        <section class="demo-cta-section animate-in">
+            <div class="demo-cta-content">
+                <h2 class="demo-cta-title">Try CleanPlate Now</h2>
+                <p class="demo-cta-subtitle">
+                    Experience the power of real restaurant health inspections! Search live data from 5 major cities including NYC, Chicago, Boston, Austin, and Seattle.
+                </p>
+                <a href="demo.html" class="demo-cta-button">
+                    <span>🔍</span>
+                    Search Real Restaurants
+                </a>
+                <div class="demo-badge">✨ Live Government Data</div>
+            </div>
+        </section>
 
         <!-- Features -->
         <section class="features-section">
